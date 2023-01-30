@@ -46,19 +46,15 @@ const createCar = (req, res) => {
 };
 
 const updateCar = (req, res) => {
-  Cars.findByIdAndUpdate(
-    { _id: req.params.id },
-    { ...req.body },
-    { new: true, runValidators: true }
-  )
+  Cars.findByIdAndUpdate(req.params.id, { ...req.body })
     .then((result) => {
       res.status(200).json({
         status: "success",
-        message: result,
+        message: "updated succesfully",
       });
     })
     .catch((err) => {
-      res.status(400).json({
+      res.status(200).json({
         status: "failed",
         message: err.message,
       });
@@ -81,10 +77,35 @@ const deleteCarById = (req, res) => {
     });
 };
 
+const rentCar = (req, res) => {
+  Cars.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        rentingHistory: req.body.renting,
+      },
+    },
+    { new: true }
+  )
+    .then((car) => {
+      res.status(200).json({
+        status: "success",
+        data: car,
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: "failed",
+        message: err.message,
+      });
+    });
+};
+
 module.exports = {
   getAllCars,
   createCar,
   getCarById,
   updateCar,
   deleteCarById,
+  rentCar,
 };
