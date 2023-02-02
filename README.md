@@ -5,5 +5,8 @@ Using MERN stack
 
 # BUILT WITH
 
+ Frontend: react tailwindcss
+ Backend : express mongodob
+
 # Live demo
 
