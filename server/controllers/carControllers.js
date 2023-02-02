@@ -78,6 +78,7 @@ const deleteCarById = (req, res) => {
 };
 
 const rentCar = (req, res) => {
+  console.log(req.body);
   Cars.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -101,6 +102,26 @@ const rentCar = (req, res) => {
     });
 };
 
+const checkIsCarAvailable = (req, res, next) => {
+  Cars.findById(req.params.id)
+    .then((car) => {
+      if (car.rentingHistory.length === 0) {
+        next();
+        return;
+      }
+      res.status(200).json({
+        status: "car is not available",
+        data: null,
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: "failed",
+        message: err.message,
+      });
+    });
+};
+
 module.exports = {
   getAllCars,
   createCar,
@@ -108,4 +129,5 @@ module.exports = {
   updateCar,
   deleteCarById,
   rentCar,
+  checkIsCarAvailable,
 };
