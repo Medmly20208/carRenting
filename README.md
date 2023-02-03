@@ -1,6 +1,5 @@
 # carRenting
-a simple website where you can rent cars ,built 
-Using MERN stack
+a simple website where you can rent cars
 # DEMO
 
 # BUILT WITH
