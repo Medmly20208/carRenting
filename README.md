@@ -1,5 +1,7 @@
 # carRenting
-a simple website where you can rent cars
+a simple website where you can rent car.
+
+
 # DEMO
 
 # BUILT WITH
