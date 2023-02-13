@@ -4,27 +4,27 @@ import { useState,useEffect } from 'react'
 
 import instance from "./axios/instance"
 
+//components
+import Header from './Components/Header'
+import Cars from './Components/Cars'
+
+
+
 function App() {
-   const [cars,setCars] = useState([])
+   
+   
 
-   useEffect(()=>{
-    instance.get('/cars').then((cars)=>setCars(cars.data.data))
-   },[])
 
-  
+
+ 
+
 
   return (
-    <div className="App">
-       <p>Tes</p>
-       {cars.map((car)=>{
-       return (
-        <>
-          <h1>{car.name}</h1>
-          <h2>{car.rating}</h2>
-        </>
-       )
-
-       })}
+    <div className="">
+           <Header/>
+           <Cars/>
+         
+       
     </div>
   )
 }

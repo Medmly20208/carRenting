@@ -70,20 +70,19 @@ const deleteCarById = (req, res) => {
       });
     })
     .catch((err) => {
-      res.status(200).json({
-        status: "success",
+      res.status(400).json({
+        status: "failed",
         message: err.message,
       });
     });
 };
 
 const rentCar = (req, res) => {
-  console.log(req.body);
   Cars.findOneAndUpdate(
     { _id: req.params.id },
     {
       $push: {
-        rentingHistory: req.body.renting,
+        upComingRenting: req.body,
       },
     },
     { new: true }
@@ -91,6 +90,7 @@ const rentCar = (req, res) => {
     .then((car) => {
       res.status(200).json({
         status: "success",
+        message: "car is been reserved for you ",
         data: car,
       });
     })
@@ -102,15 +102,43 @@ const rentCar = (req, res) => {
     });
 };
 
+const isCarAvailable = (startDate, endDate, rentingArray) => {
+  let startDateformated = new Date(startDate);
+  let endDateformated = new Date(endDate);
+  for (let period of rentingArray) {
+    if (
+      startDateformated.getTime() >= period.startDate.getTime() &&
+      startDateformated.getTime() <= period.endDate.getTime()
+    ) {
+      return false;
+    }
+    if (
+      endDateformated.getTime() >= period.startDate.getTime() &&
+      endDateformated.getTime() <= period.endDate.getTime()
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 const checkIsCarAvailable = (req, res, next) => {
   Cars.findById(req.params.id)
     .then((car) => {
-      if (car.rentingHistory.length === 0) {
+      if (
+        isCarAvailable(
+          req.body.startDate,
+          req.body.endDate,
+          car.upComingRenting
+        )
+      ) {
         next();
         return;
       }
       res.status(200).json({
-        status: "car is not available",
+        status: "failed",
+        message: "car is not available at this period",
         data: null,
       });
     })
