@@ -65,20 +65,29 @@ useEffect(()=>{
     currentDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`
     
     return (
-        <div>
-            <form onSubmit={rentCar}>
+        <div className='p-[10px] flex justify-center items-center w-full h-full'>
+            <form onSubmit={rentCar} className='flex flex-col justify-center items-start gap-[10px]'>
+                <div>
                 <label htmlFor='startDate'>Start date :</label><br></br>
-                <input min={"2023-02-13"} type="date" id="startDate" onChange={handleStartDateChange}/><br></br>
+                <input className='border border-primary' min={"2023-02-13"} type="date" id="startDate" onChange={handleStartDateChange}/><br></br>
+                </div>
+                <div>
                 <label htmlFor='endDate'>End date</label><br></br>
-                <input min={startDate} type="date" id="endDate" onChange={handleEndDateChange}></input><br></br>
+                <input className='border border-primary' min={startDate} type="date" id="endDate" onChange={handleEndDateChange}></input><br></br>
+                </div>
+                <div>
                 <label htmlFor='userName'>User Name</label><br></br>
-                <input type="text" id="userName" onChange={handleUserNameChange}/><br></br>
+                <input className='border border-primary' type="text" id="userName" onChange={handleUserNameChange}/><br></br>
+                </div>
+               
+                <p>Total Price :{totalPrice}$</p>
                 <button className='text-white w-[110px] h-[25px] rounded-[12px] bg-primary'>Rent</button>
-            </form>
-            <p>Total Price :{totalPrice}$</p>
-            <p className={messageStyle}>
+                <p className={messageStyle}>
             {messageResponse}
             </p>
+            </form>
+            
+            
         </div>
     )
      
@@ -95,17 +104,7 @@ const displayModal = ()=>{
     setIsModalDisplayed(true)
 }
     
-   /* const rentCar = (id)=>{
-        instance.patch(`/cars/${props.car._id}/rent`,{
-         username:"newOne",
-         startDate,
-         endDate
-        }).then((result)=>{
-         console.log(result.data)
-        }).catch((err)=>{
-         console.log(err)
-        })
-      }*/
+  
 
 
   return (

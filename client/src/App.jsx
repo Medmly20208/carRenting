@@ -21,8 +21,7 @@ function App() {
 
   return (
     <div className="">
-           <Header/>
-           <Cars/>
+          
          
        
     </div>

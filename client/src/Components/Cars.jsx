@@ -14,7 +14,6 @@ const Cars = () => {
     useEffect(()=>{
         setIsLoading(true)
         instance.get('/cars').then((cars)=>{
-            console.log(cars)
             setCars(cars.data.data)
             setIsLoading(false)})
        },[])
