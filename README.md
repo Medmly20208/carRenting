@@ -1,10 +1,4 @@
-# carRenting
 
-
-
-# DEMO
-
-# BUILT WITH
 
  
 
