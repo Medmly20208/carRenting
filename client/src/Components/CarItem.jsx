@@ -74,7 +74,7 @@ const InputGroup = (props)=>{
   let currentDate = new Date();
   const [startDate,setStartDate] = useState("")
   const [endDate,setEndDate] = useState("")
-  const [userName,setUserName] = useState('')
+ 
   const [messageResponse,setMessageResponse] = useState('')
   const [messageColor,setMessageColor] = useState("")
   const [totalPrice,setTotalPrice] = useState(0)
@@ -90,7 +90,7 @@ const InputGroup = (props)=>{
       setMessageResponse("")
       
       instance.patch(`/cars/${props.car._id}/rent`,{
-       username: userName,
+       username: authcontext.user.email,
        startDate,
        endDate
       }).then((result)=>{
@@ -111,9 +111,7 @@ const handleEndDateChange = (event)=>{
   setEndDate(event.target.value)
 }
 
-const handleUserNameChange = (event)=>{
-  setUserName(event.target.value)
-}
+
   
 useEffect(()=>{
   if(startDate!="" && endDate!="")
@@ -136,10 +134,6 @@ useEffect(()=>{
               <div>
               <label htmlFor='endDate'>End date</label><br></br>
               <input className='border border-primary' min={startDate} type="date" id="endDate" onChange={handleEndDateChange}></input><br></br>
-              </div>
-              <div>
-              <label htmlFor='userName'>User Name</label><br></br>
-              <input className='border border-primary' type="text" id="userName" onChange={handleUserNameChange}/><br></br>
               </div>
              
               <p>Total Price :{totalPrice}$</p>
