@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import useLogIn from '../hooks/useLogin'
 import useAuthContext from '../hooks/useAuthContext'
@@ -20,20 +20,20 @@ const Login = () => {
         setEmail(event.target.value)
     }
 
+    
    
    const loginHandler = async (event)=>{
-       event.preventDefault()
-       login(email,password).then(()=>{
-        console.log("after login")
-        console.log(authContext)
-        if(authContext.user!=null){
-            console.log("")
-            navigate("/")
-          }
-       })
-      
        
+       event.preventDefault()
+       login(email,password)
     }
+
+   useEffect(()=>{
+    if(authContext.user!=null){
+        navigate("/")
+      }
+   },[authContext])
+   
   return (
     <div className='w-[100vw] h-[100vh] flex justify-center items-center '>
     <form onSubmit={loginHandler} className='p-[20px] border border-primary min-h-[250px]  w-[90vw] flex gap-[10px] flex-col justify-center sm:w-[400px]'>

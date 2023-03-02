@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import useSignUp from '../hooks/useSignup'
 import { useNavigate } from 'react-router-dom'
 import useAuthContext from '../hooks/useAuthContext'
@@ -18,16 +18,16 @@ const Signup = () => {
         setEmail(event.target.value)
     }
 
-    const signUpHandler = async (event)=>{
+    const signUpHandler = async(event)=>{
         event.preventDefault()
-        signup(email,password).then(()=>{
-            if(authContext.user!=null){
-                navigate("/")
-            }
-                
-        })
+        await signup(email,password)
     }
     
+    useEffect(()=>{
+        if(authContext.user!=null){
+            navigate("/")
+        }
+    },[authContext])
     
   
   return (

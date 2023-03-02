@@ -19,7 +19,7 @@ export default function useSignUp(email, password) {
       .then((result) => {
         userContext.dispatch({ type: "LOGIN", payload: result.data.data });
         localStorage.setItem("user", result.data.data);
-        console.log("done");
+
         setIsLoading(false);
       })
       .catch((err) => {

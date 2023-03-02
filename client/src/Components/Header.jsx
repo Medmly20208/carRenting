@@ -8,7 +8,7 @@ const Header = () => {
   
   const {user} = useAuthContext()
   const {LogOut} = useLogout()
-  console.log(user)
+  
    
   const LogoutHandler = ()=>{
     LogOut()

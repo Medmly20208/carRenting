@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import instance from "../axios/instance";
 import useAuthContext from "./useAuthContext";
@@ -17,9 +17,13 @@ export default function useLogIn(email, password) {
         password,
       })
       .then((result) => {
-        setIsLoading(false);
-        userContext.dispatch({ type: "LOGIN", payload: result.data.data });
         localStorage.setItem("user", result.data.data);
+        userContext.dispatch({
+          type: "LOGIN",
+          payload: result.data.data,
+        });
+
+        setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
