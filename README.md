@@ -1,13 +1,7 @@
-# carRenting
+Full stack project
+Built with mern stack
+...
+ 
 
 
-
-# DEMO
-
-# BUILT WITH
-
- Frontend: react tailwindcss
- Backend : express mongodb
-
-# Live demo
 
