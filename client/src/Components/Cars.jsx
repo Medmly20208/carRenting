@@ -1,34 +1,41 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 
 //components
 import CarItem from './CarItem'
+import { getCars } from '../api/getCalls'
 
-//axios
-import instance from '../axios/instance'
+//react query
+import { useQuery } from '@tanstack/react-query'
+
+
+
+
 
 const Cars = () => {
     
-    const [cars,setCars] = useState([])
-    const [isLoading,setIsLoading] = useState(false)
+    
+    
+    const { isLoading, isError, data:cars, error,initialData } = useQuery({ queryKey: ['todos'], queryFn: getCars})
+   
   
-    useEffect(()=>{
-        setIsLoading(true)
-        instance.get('/cars').then((cars)=>{
-            setCars(cars.data.data)
-            setIsLoading(false)})
-       },[])
+    
+       
   
     
     return (
     <section className='ml-[10px]'>
-        <h1>our cars</h1>
+       <h1>our cars</h1>
+       {
         <div className='flex flex-row flex-wrap justify-center items-center gap-[10px]'>
-        {!isLoading &&  cars.map((car)=>{
+        {isLoading && <p>loading</p>}
+        {!isLoading &&  cars?.data.data.map((car)=>{
                 return <CarItem key={car._id} car={car}></CarItem>
             })}
-           
-            
+        
+        {isError && <p>{error.message}</p>}
         </div>
+       } 
+        
     </section>
   )
 }

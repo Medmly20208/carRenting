@@ -3,10 +3,15 @@ import React,{useState,useEffect} from 'react'
 import useLogIn from '../hooks/useLogin'
 import useAuthContext from '../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { login } from '../Api/postCalls'
 
 const Login = () => {
    
-    const { error, isLoading, login } = useLogIn()
+    //const { error, isLoading, login } = useLogIn()
+    const mutation = useMutation({
+        mutationFn:login,
+    })
     const navigate = useNavigate()
     const authContext = useAuthContext()
     const inputStyle = 'p-[8px] border border-primary w-full'
@@ -21,12 +26,17 @@ const Login = () => {
     }
 
     
-   
+   console.log(mutation)
    const loginHandler = async (event)=>{
        
        event.preventDefault()
-       login(email,password)
+       mutation.mutate(email,password)
+       authContext.dispatch({
+        type: "LOGIN",
+        payload: "",
+      })
     }
+    console.log(mutation?.data)
 
    useEffect(()=>{
     if(authContext.user!=null){
@@ -49,9 +59,9 @@ const Login = () => {
             <label htmlFor='password'>Password</label><br></br>
             <input onChange={changePasswordHandler} type="password" id="password" className={inputStyle}></input>
         </div>
-        <button disabled={isLoading} className='border border-primary bg-primary text-[white] py-[5px]'>{isLoading?"loading":"login"}</button>                
-        {error!==null && <div className='text-[red] bg-red-100 p-[4px] border border-red'>
-            {error?.response.data.message}
+        <button disabled={mutation.isLoading} className='border border-primary bg-primary text-[white] py-[5px]'>{mutation.isLoadingisLoading?"loading":"login"}</button>                
+        {mutation.error!==null && <div className='text-[red] bg-red-100 p-[4px] border border-red'>
+            {mutation.error?.response.data.message}
         </div>}
     </form>
     </div>
