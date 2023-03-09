@@ -14,7 +14,7 @@ const Header = () => {
     LogOut()
   }
 
-   
+   console.log(user)
    
   return (
     <header className='bg-basic text-center text-[white] h-[50px] flex flex-row justify-evenly items-center '>

@@ -2,3 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .input-primary {
+      @apply p-[8px] border border-primary w-full;
+    }
+  }

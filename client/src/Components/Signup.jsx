@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import useSignUp from '../hooks/useSignup'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import useAuthContext from '../hooks/useAuthContext'
 
 
@@ -39,16 +39,18 @@ const Signup = () => {
        
         <div>
             <label htmlFor='email'>Email</label><br></br>
-            <input onChange={changeEmailHandler} type="email" id="email" className='border border-primary w-full'></input>
+            <input onChange={changeEmailHandler} type="email" id="email" className='input-primary'></input>
         </div>
         <div>
             <label htmlFor='password'>Password</label><br></br>
-            <input onChange={changePasswordHandler} type="password" id="password" className='border border-primary w-full'></input>
+            <input onChange={changePasswordHandler} type="password" id="password" className='input-primary'></input>
         </div>
         <button disabled={isLoading} type="submit" className='border border-primary bg-primary text-[white] py-[5px]'> {isLoading ? "loading":"Sign Up"}</button>
         {error!==null && <div className='text-[red] bg-red-100 p-[4px] border border-red'>
             {error?.response.data.message}
         </div>}
+        <div className='flex gap-[5px] justify-center items-center'><p>you already have an account</p><Link to="/login" className='text-primary'>Log in</Link>  </div>
+
     </form>
     
     </div>
